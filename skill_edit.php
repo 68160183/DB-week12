@@ -1,3 +1,7 @@
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 <?php
 require 'crud_bootstrap.php';
 $id=valid_id($_GET['id']??$_POST['id']??null);$pid=profile_id($conn);$error='';$row=null;
@@ -9,7 +13,16 @@ $sql = "SELECT * FROM skill WHERE id = ? AND profile_id = ?";
 
 
 $stmt=mysqli_prepare($conn,$sql);
-if($stmt){mysqli_stmt_bind_param($stmt,'ii',$id,$pid);mysqli_stmt_execute($stmt);mysqli_stmt_bind_result($stmt,$oldName,$oldLevel);if(mysqli_stmt_fetch($stmt))$row=['skill_name'=>$oldName,'skill_level'=>$oldLevel];mysqli_stmt_close($stmt);}
+if($stmt){mysqli_stmt_bind_param($stmt,'ii',$id,$pid);
+mysqli_stmt_execute($stmt);mysqli_stmt_bind_result($stmt,$oldId,$oldProfileId,$oldName,$oldLevel);
+if(mysqli_stmt_fetch($stmt)){
+    $row=['skill_name'=>$oldName,'skill_level'=>$oldLevel];
+    }
+    mysqli_stmt_close($stmt);
+}
+   
+
+
 if(!$row){http_response_code(404);exit('Record not found or TODO 2a unfinished.');}
 $name=$row['skill_name'];$level=$row['skill_level'];
 if($_SERVER['REQUEST_METHOD']==='POST'){
