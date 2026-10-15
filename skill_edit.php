@@ -13,13 +13,16 @@ $sql = "SELECT * FROM skill WHERE id = ? AND profile_id = ?";
 
 
 $stmt=mysqli_prepare($conn,$sql);
-if($stmt){mysqli_stmt_bind_param($stmt,'ii',$id,$pid);
-mysqli_stmt_execute($stmt);mysqli_stmt_bind_result($stmt,$oldId,$oldProfileId,$oldName,$oldLevel);
+if($stmt){mysqli_stmt_bind_param($stmt,'ii',$id,$pid);{
+}mysqli_stmt_execute($stmt);{
+mysqli_stmt_bind_result($stmt,$oldId,$oldProfileId,$oldName,$oldLevel);}
 if(mysqli_stmt_fetch($stmt)){
     $row=['skill_name'=>$oldName,'skill_level'=>$oldLevel];
     }
-    mysqli_stmt_close($stmt);
+        mysqli_stmt_close($stmt);
+
 }
+ 
    
 
 
